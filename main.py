@@ -92,7 +92,12 @@ def payment(selected):
    
    elif payment_input== "can":
      print("You cancelled the payment")
-     print(f"Here is your refund")
+     print("Returning to Main Menu", end="", flush=True)
+     for i in range(3):
+        time.sleep(1)
+        print(".", end="", flush=True)
+     time.sleep(1.5)
+     clear_screen()
      return False
    else:
      print("Invalid input! Please enter a number or 'can'")
