@@ -49,14 +49,14 @@ Welcome! Let's grab some coffee:
 
     user_choice= input("What would you like? \n").lower() 
     if user_choice in drinks_menu: 
-       selected= drinks_menu[user_choice]
-       print(f"You ordered {drinks_menu[user_choice].name},  Price: ₹{selected.price} \n")
-       
+       selected = drinks_menu[user_choice]
        return selected
+
     elif user_choice== "rep":
-        initial_resources.report()
-        input("Press Enter to continue")
-        clear_screen()
+       clear_screen()
+       initial_resources.report()
+       input("Press Enter to continue")
+       clear_screen()
 
     elif user_choice== "can":
         print("Order Cancelled")
@@ -82,30 +82,49 @@ Welcome! Let's grab some coffee:
  
 
 
-def payment(selected):   
-  total_payment = 0   
-  while True:
-   payment_input = (input("Please insert the money ""\n")).lower()
-   if payment_input.isdigit():
-     user_payment= int(payment_input)
-     break  
+def payment(selected):
+
+    clear_screen()
+
+    print(f"""
+ ══════════════════════════════════════
+               PAYMENT               
+ ══════════════════════════════════════
+          
+☕ {selected.name.upper()} SELECTED  
+   Amount Due:-  ₹{selected.price}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━═════════
+
+Insert Money
+(Type 'can' to cancel)
+
+""")
+
+    total_payment = 0
+
+    while True:
+     payment_input = (input("Please insert the money ""\n")).lower()
+     if payment_input.isdigit():
+      user_payment= int(payment_input)
+      break  
    
-   elif payment_input== "can":
-     print("You cancelled the payment")
-     print("Returning to Main Menu", end="", flush=True)
-     for i in range(3):
+     elif payment_input== "can":
+      print("You cancelled the payment")
+      print("Returning to Main Menu", end="", flush=True)
+      for i in range(3):
         time.sleep(1)
         print(".", end="", flush=True)
-     time.sleep(1.5)
-     clear_screen()
-     return False
-   else:
-     print("Invalid input! Please enter a number or 'can'")
+      time.sleep(1.5)
+      clear_screen()
+      return False
+     else:
+      print("Invalid input! Please enter a number or 'can'")
      
   
-  total_payment += user_payment
+    total_payment += user_payment
     
-  while total_payment< selected.price: 
+    while total_payment< selected.price: 
         needed_money = selected.price - total_payment
         print("Oops! looks like you havent inserted enough amount") 
 
@@ -133,13 +152,13 @@ def payment(selected):
        
         
   
-  if total_payment > selected.price:
-        change = total_payment - selected.price 
-        print(f"Your Change: {change}") 
+    if total_payment > selected.price:
+      change = total_payment - selected.price 
+      print(f"Your Change: {change}") 
        
        
   
-  return True
+    return True
 
 def clear_screen():
     os.system("cls")
@@ -181,10 +200,26 @@ while True:
     payment_done = payment(selected)
     if not payment_done:
       continue
+    
+
+    print("""
+ ══════════════════════════════════════
+        PAYMENT SUCCESSFUL ✅         
+ ══════════════════════════════════════
+
+
+""")
+
+    input("Press Enter to continue")
+
+    clear_screen()
     initial_resources.deduct_resources(selected)
 
-    print(f"\n☕ Preparing your {selected.name}...\n")
-
+    print("""
+ ══════════════════════════════════════
+        Preparing your Coffee...         
+ ══════════════════════════════════════
+""")
     steps = [
     "🫘 Grinding coffee beans...",
     "💧 Heating water...",
@@ -204,7 +239,7 @@ while True:
     for step, bar in zip(steps, bars):
      print(f"{step}")
      print(f"\r{bar}", end="", flush=True)
-     time.sleep(1)
+     time.sleep(1.2)
      print("\n")
 
     print("✅ Coffee Ready!\n")
