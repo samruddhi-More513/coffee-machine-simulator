@@ -1,4 +1,3 @@
-from drinks_class import Drink
 class Coffeemachine():
     def __init__(self, water_left, milk_left,coffee_left,sugar_left,balance):
         self.water_left= water_left
@@ -12,12 +11,22 @@ class Coffeemachine():
         self.balance=balance
 
     def report(self):
-        print(f"Available Water: {self.water_left} ml")
-        print(f"Available Milk: {self.milk_left} ml")
-        print(f"Available Coffee: {self.coffee_left} gm")
-        print(f"Available Sugar: {self.sugar_left} ml")
-        print(f"Total Balance: {self.balance} rs")
-        print()
+      print("""
+ ══════════════════════════════════════
+          📊 MACHINE REPORT 📊         
+ ══════════════════════════════════════
+""")
+
+      print(f"💧 Water   : {self.water_left:>4} ml")
+      print(f"🥛 Milk    : {self.milk_left:>4} ml")
+      print(f"🫘 Coffee  : {self.coffee_left:>4} gm")
+      print(f"🍬 Sugar   : {self.sugar_left:>4} gm")
+
+      print("──────────────────────────────────────")
+
+      print(f"💰 Balance : ₹{self.balance}")
+
+      print("══════════════════════════════════════")
 
 
     def check_resources(self,selected):
